@@ -8,15 +8,16 @@ import java.awt.*;
 public class Principal {
     private JPanel Principal;
 
-    public Principal() {
-        StartScreen start = new StartScreen();
+    public Principal(JFrame frame) {
+        StartScreen start = new StartScreen(frame);
         Principal.setLayout(new BorderLayout());
         Principal.add(start.MenuPrincipal, BorderLayout.CENTER);
+
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Taytumn");
-        frame.setContentPane(new Principal().Principal);
+        frame.setContentPane(new Principal(frame).Principal);
         frame.setPreferredSize(new Dimension(1050, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

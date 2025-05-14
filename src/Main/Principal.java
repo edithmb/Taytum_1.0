@@ -1,5 +1,6 @@
 package Main;
 
+import screens.Instructions;
 import screens.StartScreen;
 
 import javax.swing.*;

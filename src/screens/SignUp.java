@@ -24,7 +24,7 @@ public class SignUp {
 
 
         //welcome
-        JLabel welcome = new JLabel("Welcome Again!!!");
+        JLabel welcome = new JLabel("Welcome!!!");
         welcome.setFont(Utils.getQuicksand(50f));
         welcome.setForeground(Color.decode("#4C1E4F"));
         welcome.setBounds(350, 100, 700, 60);

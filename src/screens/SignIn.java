@@ -18,7 +18,7 @@ public class SignIn {
         signInPanel.setBackground(Color.decode("#CDB4D5"));
 
         //welcome
-        JLabel welcome = new JLabel("Welcome!!!");
+        JLabel welcome = new JLabel("Welcome Again!!!");
         welcome.setFont(Utils.getQuicksand(50f));
         welcome.setForeground(Color.decode("#4C1E4F"));
         welcome.setBounds(400, 100, 700, 50);
@@ -58,6 +58,7 @@ public class SignIn {
 
                 if(checkUser(username, password)){
                     JOptionPane.showMessageDialog(signInPanel, "Welcome Again " + username);
+
                 } else {
                     JOptionPane.showMessageDialog(signInPanel, "Invalid Username or Password");
                 }

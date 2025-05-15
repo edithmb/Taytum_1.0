@@ -54,6 +54,7 @@ public class Instructions {
         homeButton.setFont(Utils.getQuicksand(20f));
         homeButton.setBounds(5, 10, 200, 50);
         InstructionsPanel.add(homeButton);
+        homeButton.addActionListener(Utils.backHome(frame));
 
         signIn.addActionListener( new ActionListener() {
             @Override
@@ -79,22 +80,14 @@ public class Instructions {
         guest.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Levels levels = new Levels();
+                Levels levels = new Levels(frame);
                 frame.setContentPane(levels.LevelsPanel);
                 frame.validate();
                 frame.repaint();
             }
         });
 
-        homeButton.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StartScreen start = new StartScreen(frame);
-                frame.setContentPane(start.MenuPrincipal);
-                frame.validate();
-                frame.repaint();
-            }
-        });
+
 
 
 

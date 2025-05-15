@@ -16,6 +16,8 @@ public class StartScreen {
         MenuPrincipal.setLayout(null);
         MenuPrincipal.setPreferredSize(new Dimension(1050, 600));
         MenuPrincipal.setBackground(Color.decode("#CDB4D5"));
+
+
         addButtons(frame);
     }
     private void addButtons(JFrame frame) {
@@ -34,6 +36,7 @@ public class StartScreen {
 
 
         JButton Start = new JButton("Start Game");
+        Start.setFocusPainted(false);
         Start.setFont(Utils.getQuicksand(20f));
         Start.setBounds((1050 - 200) / 2, 350, 200, 50);
         MenuPrincipal.add(Start);

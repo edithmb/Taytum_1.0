@@ -24,10 +24,10 @@ public class Principal {
         frame.pack();
         frame.setVisible(true);
 
-
         //Icono
         Toolkit screen = Toolkit.getDefaultToolkit();
         Image image = screen.getImage("src/resources/logotulip.png");
         frame.setIconImage(image);
     }
+
 }

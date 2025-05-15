@@ -1,10 +1,11 @@
 package utils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Fonts {
+public class Utils {
     private static Font Quicksand;
 
 
@@ -21,4 +22,5 @@ public class Fonts {
     public static Font getQuicksand(float size) {
         return Quicksand.deriveFont(size);
     }
+
 }

@@ -14,7 +14,6 @@ public class StartScreen {
     public StartScreen(JFrame frame) {
         MenuPrincipal = new JPanel();
         MenuPrincipal.setLayout(null);
-        MenuPrincipal.setPreferredSize(new Dimension(1050, 600));
         MenuPrincipal.setBackground(Color.decode("#CDB4D5"));
 
 

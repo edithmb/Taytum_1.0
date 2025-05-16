@@ -16,10 +16,9 @@ import java.sql.SQLException;
 public class SignUp {
     public JPanel SignUpPanel;
 
-    public SignUp() {
+    public SignUp(JFrame frame) {
         SignUpPanel = new JPanel();
         SignUpPanel.setLayout(null);
-        SignUpPanel.setPreferredSize(new Dimension(1050,600));
         SignUpPanel.setBackground(Color.decode("#CDB4D5"));
 
 
@@ -55,6 +54,12 @@ public class SignUp {
         singUp.setBounds(480, 400, 120, 40);
         SignUpPanel.add(singUp);
 
+        JButton homeButton = Utils.createHomeButton(frame,"Back",15,15);
+        homeButton.setFont(Utils.getQuicksand(16f));
+        homeButton.setBounds(10, 10, 100, 40);
+        SignUpPanel.add(homeButton);
+
+
         singUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,6 +68,10 @@ public class SignUp {
 
                 if(registerPerson(username, password)){
                     JOptionPane.showMessageDialog(SignUpPanel,  "User registered successfully!");
+                    Levels levels = new Levels(frame);
+                    frame.setContentPane(levels.LevelsPanel);
+                    frame.validate();
+                    frame.repaint();
                 }
                 else{
                     JOptionPane.showMessageDialog(SignUpPanel, "Error registering user. It may already exist.");

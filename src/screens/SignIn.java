@@ -11,10 +11,9 @@ import java.sql.*;
 
 public class SignIn {
     public JPanel signInPanel;
-    public SignIn() {
+    public SignIn(JFrame frame) {
         signInPanel = new JPanel();
         signInPanel.setLayout(null);
-        signInPanel.setPreferredSize(new Dimension(1050,600));
         signInPanel.setBackground(Color.decode("#CDB4D5"));
 
         //welcome
@@ -50,6 +49,13 @@ public class SignIn {
         signIn.setBounds(480, 400, 120, 40);
         signInPanel.add(signIn);
 
+
+        JButton homeButton = Utils.createHomeButton(frame,"Back",15,15);
+        homeButton.setFont(Utils.getQuicksand(16f));
+        homeButton.setBounds(10, 10, 100, 40);
+        signInPanel.add(homeButton);
+
+
         signIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,6 +64,10 @@ public class SignIn {
 
                 if(checkUser(username, password)){
                     JOptionPane.showMessageDialog(signInPanel, "Welcome Again " + username);
+                    Levels levels = new Levels(frame);
+                    frame.setContentPane(levels.LevelsPanel);
+                    frame.validate();
+                    frame.repaint();
 
                 } else {
                     JOptionPane.showMessageDialog(signInPanel, "Invalid Username or Password");

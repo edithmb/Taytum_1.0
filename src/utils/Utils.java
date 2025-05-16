@@ -51,6 +51,27 @@ public class Utils {
         graphic.dispose();
     }
 
+    public static void drawCollector (Graphics g, JComponent component, String imagePath, int x, int y, int width, int height){
+        Image image = new ImageIcon(imagePath).getImage();
+        g.drawImage(image,x,y,width,height,component);
+
+    }
+
+    public static ImageIcon getIcon(int width, int height){
+        ImageIcon icon = new ImageIcon("src/resources/house.png");
+        Image image =icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(image);
+
+    }
+
+    public static JButton createHomeButton(JFrame frame, String text, int iconWidth, int iconHeight){
+        JButton button = new JButton(text,getIcon(iconWidth, iconHeight));
+        button.setHorizontalTextPosition(SwingConstants.RIGHT);
+        button.setIconTextGap(10);
+        button.addActionListener(backHome(frame));
+        return button;
+    }
+
 
 
 

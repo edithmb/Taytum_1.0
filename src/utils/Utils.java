@@ -71,8 +71,17 @@ public class Utils {
         return button;
     }
 
+    public static class FallingObject {
+        public int x, y;
 
+        public FallingObject(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
 
+        public void draw(Graphics g, JPanel panel) {
+            Utils.drawImage(g, panel, "src/resources/item.png", 0.1f, x, y, 50, 50);
+        }
 
-
+    }
 }

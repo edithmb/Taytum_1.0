@@ -8,6 +8,7 @@ public class FallingObject {
     public int w,h;
     public int speed;
     public String path;
+    private Image image;
 
     public FallingObject(int x, int y, int w, int h, int speed, String path) {
         this.x = x;
@@ -15,7 +16,14 @@ public class FallingObject {
         this.w = w;
         this.h = h;
         this.speed = speed;
-        this.path = path;
+        java.net.URL imageURL = getClass().getResource(path);
+        if (imageURL != null) {
+            ImageIcon object = new ImageIcon(imageURL);
+            this.image = object.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
+        } else {
+            System.out.println("No se encontró la imagen: " + path);
+        }
+
     }
 
     public void update (){
@@ -23,12 +31,11 @@ public class FallingObject {
     }
 
     public void draw(Graphics g, Component c){
-        ImageIcon object =new ImageIcon(path);
-        Image image = object.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
-        g.drawImage(image,x,y,c);
+        if ( image != null){
+            g.drawImage(image,x,y,c);
+        }
 
     }
-
     public Rectangle getBounds() {
         return new Rectangle(x,y,w,h);
     }

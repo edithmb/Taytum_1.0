@@ -27,7 +27,6 @@ public class Principal {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-//comentario
         //Icono
         Toolkit screen = Toolkit.getDefaultToolkit();
         Image image = screen.getImage("src/resources/logotulip.png");
@@ -44,5 +43,6 @@ public class Principal {
         UIManager.put("Button.foreground", Color.decode("#CDB4D5"));//Color del texto del botton
 
     }
+
 
 }

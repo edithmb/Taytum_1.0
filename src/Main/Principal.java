@@ -27,7 +27,7 @@ public class Principal {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
+//comentario
         //Icono
         Toolkit screen = Toolkit.getDefaultToolkit();
         Image image = screen.getImage("src/resources/logotulip.png");

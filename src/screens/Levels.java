@@ -40,7 +40,7 @@ public class Levels {
          level1.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 Level1 level1 = new Level1();
+                 Level1 level1 = new Level1(frame);
                  frame.setContentPane(level1.Level1Panel);
                  frame.validate();
                  frame.repaint();

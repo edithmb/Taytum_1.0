@@ -37,7 +37,6 @@ public class Utils {
                 frame.repaint();
             }
         };
-
     }
 
 

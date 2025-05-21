@@ -41,8 +41,5 @@ public class Principal {
         UIManager.put("OptionPane.messageForeground", Color.decode("#CDB4D5"));//Color del texto del mensaje
         UIManager.put("Button.background",Color.decode("#4C1E4F"));//Color del boton
         UIManager.put("Button.foreground", Color.decode("#CDB4D5"));//Color del texto del botton
-
     }
-
-
 }

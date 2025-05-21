@@ -12,23 +12,28 @@ public class StartScreen {
     public JPanel MenuPrincipal;
 
     public StartScreen(JFrame frame) {
-        MenuPrincipal = new JPanel();
+        MenuPrincipal = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Utils.drawBackground(g, this, "FONDO.png");
+            }
+
+        };
         MenuPrincipal.setLayout(null);
         MenuPrincipal.setBackground(Color.decode("#CDB4D5"));
-
-
         addButtons(frame);
     }
     private void addButtons(JFrame frame) {
 
         JLabel fraseInicial = new JLabel("Welcome to your Swiftie Catch Game");
-        fraseInicial.setFont(Utils.getQuicksand(40f));
+        fraseInicial.setFont(Utils.getQuicksand(40f).deriveFont(Font.BOLD));
         fraseInicial.setForeground(Color.decode("#4C1E4F"));
-        fraseInicial.setBounds(200, 100, 700, 50);
+        fraseInicial.setBounds(200, 100, 800, 50);
         MenuPrincipal.add(fraseInicial);
 
         JLabel titulo = new JLabel("Taytumn");
-        titulo.setFont(Utils.getQuicksand(70f));
+        titulo.setFont(Utils.getQuicksand(70f).deriveFont(Font.BOLD));
         titulo.setForeground(Color.decode("#4C1E4F"));
         titulo.setBounds((1050-300)/2, 150, 500, 150);
         MenuPrincipal.add(titulo);

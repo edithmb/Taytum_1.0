@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class Utils {
     private static Font Quicksand;
@@ -20,7 +21,7 @@ public class Utils {
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(Quicksand);
         } catch (FontFormatException | IOException e) {
             System.err.println("Error al cargar la fuente: " + e.getMessage());
-            Quicksand = new Font("SansSerif", Font.PLAIN, 12); // fuente de respaldo
+            Quicksand = new Font("QUICKSAND", Font.PLAIN, 12); // fuente de respaldo
         }
     }
     public static Font getQuicksand(float size) {
@@ -71,17 +72,10 @@ public class Utils {
         return button;
     }
 
-    public static class FallingObject {
-        public int x, y;
 
-        public FallingObject(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public void draw(Graphics g, JPanel panel) {
-            Utils.drawImage(g, panel, "src/resources/item.png", 0.1f, x, y, 50, 50);
-        }
-
+    public static void drawBackground(Graphics g, JComponent component, String imagePath) {
+        ImageIcon icon = new ImageIcon("src/resources/" + imagePath);
+        Image background = icon.getImage();
+        g.drawImage(background, 0, 0, component.getWidth(), component.getHeight(), component);
     }
 }

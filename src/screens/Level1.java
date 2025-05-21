@@ -24,18 +24,32 @@ public class Level1 {
 
     private String[] correctImages = {
             "src/resources/debut.png",
-            "src/resources/fearlesstv.png"
+            "src/resources/fearlesstv.png",
+            "src/resources/speaknowtv.png",
+            "src/resources/redtv.png",
+            "src/resources/1989tv.png",
+            "src/resources/lover.png",
+            "src/resources/folklore.png",
+            "src/resources/evermore.png",
+            "src/resources/midnights.png",
+            "src/resources/ttpd.png",
+
+
     };
 
     private String[] incorrectImages = {
-            "src/resources/fearless.png"
+            "src/resources/fearless.png",
+            "src/resources/speaknow.png",
+            "src/resources/red.png",
+            "src/resources/1989.png",
+            "src/resources/reputation.png",
     };
 
     private int score = 0;
     private final int collectorWidth = 200;
     private final int collectorHeight = 150;
-    private final int objectWidth = 70;
-    private final int objectHeight = 70;
+    private final int objectWidth = 105;
+    private final int objectHeight = 100;
 
     private Timer gameTimer;
     private Random random = new Random();
@@ -75,12 +89,13 @@ public class Level1 {
         paneltop.add(homeButton, BorderLayout.WEST);
 
         JLabel levellabel = new JLabel("Debut level");
-        levellabel.setFont(Utils.getQuicksand(25f));
+        levellabel.setFont(Utils.getQuicksand(25f).deriveFont(Font.BOLD));
+        levellabel.setForeground(Color.decode("#CDB4D5"));
         paneltop.add(levellabel, BorderLayout.CENTER);
 
-        scoreLabel = new JLabel("Puntuación: 0");
+        scoreLabel = new JLabel("Taycoins: 0");
         scoreLabel.setFont(Utils.getQuicksand(24f));
-        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel.setBackground(Color.decode("#CDB4D5"));
         scoreLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         paneltop.add(scoreLabel, BorderLayout.NORTH);
 
@@ -163,7 +178,7 @@ public class Level1 {
                     score -= 2;
                 }
 
-                scoreLabel.setText("Puntuación: " + score);
+                scoreLabel.setText("Taycoins: " + score);
             }
         }
 

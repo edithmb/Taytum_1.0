@@ -3,6 +3,9 @@ package screens;
 import utils.Utils;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,14 +22,23 @@ public class Instructions {
     }
 
     private void showInstructions() {
-        JTextArea instructionsText = new JTextArea();
-        instructionsText.setText("Instruccionesssssss " +
-                "dfjksgsdfghsdfsdffdf");
-        instructionsText.setBounds(300, 100, 450, 200);
-        instructionsText.setFont(Utils.getQuicksand(30f));
+        JTextPane instructionsText = new JTextPane();
+        instructionsText.setText("Instructions:\n" +
+                "Catch the right objects to earn a point;\n"
+                + "Catch the wrong ones and you’ll lose two.\n"
+                + "If your score drops below 0, the game is over.");
+        instructionsText.setForeground(Color.decode("#4C1E4F"));
+        instructionsText.setBounds(270, 50, 500, 300);
+        instructionsText.setFont(Utils.getQuicksand(30f).deriveFont(Font.BOLD));
         instructionsText.setEditable(false);
         instructionsText.setOpaque(false);
         instructionsText.setFocusable(false);
+
+        // Centrado de texto
+        StyledDocument doc = instructionsText.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
 
 
         InstructionsPanel.add(instructionsText);

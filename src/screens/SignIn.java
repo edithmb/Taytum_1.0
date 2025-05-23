@@ -1,6 +1,7 @@
 package screens;
 
 import Main.ConnectiontoDatabase;
+import utils.BotonPersonalizado;
 import utils.Utils;
 
 import javax.swing.*;
@@ -12,22 +13,30 @@ import java.sql.*;
 public class SignIn {
     public JPanel signInPanel;
     public SignIn(JFrame frame) {
-        signInPanel = new JPanel();
+        signInPanel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Utils.drawBackground(g, this, "FONDO.png");
+            }
+
+        };
         signInPanel.setLayout(null);
         signInPanel.setBackground(Color.decode("#CDB4D5"));
 
         //welcome
-        JLabel welcome = new JLabel("Welcome Again!!!");
-        welcome.setFont(Utils.getQuicksand(50f));
+        JLabel welcome = new JLabel("Welcome Again!");
+        welcome.setFont(Utils.getQuicksand(50f).deriveFont(Font.BOLD));
         welcome.setForeground(Color.decode("#4C1E4F"));
-        welcome.setBounds(400, 100, 700, 50);
+        welcome.setBounds(320, 90, 700, 80);
         signInPanel.add(welcome);
 
 
         //username
-        JLabel username = new JLabel("Username");
-        username.setFont(Utils.getQuicksand(20f));
-        username.setBounds(350, 200, 100, 30);
+        JLabel username = new JLabel("Username:");
+        username.setFont(Utils.getQuicksand(20f).deriveFont(Font.BOLD));
+        username.setForeground(Color.decode("#4C1E4F"));
+        username.setBounds(330, 200, 200, 30);
         signInPanel.add(username);
         JTextField usernameText = new JTextField();
         usernameText.setFont(Utils.getQuicksand(20f));
@@ -35,24 +44,27 @@ public class SignIn {
         signInPanel.add(usernameText);
 
         //password
-        JLabel password = new JLabel("Password");
-        password.setFont(Utils.getQuicksand(20f));
-        password.setBounds(350, 300, 100, 30);
+        JLabel password = new JLabel("Password:");
+        password.setFont(Utils.getQuicksand(20f).deriveFont(Font.BOLD));
+        password.setForeground(Color.decode("#4C1E4F"));
+        password.setBounds(330, 300, 100, 30);
         signInPanel.add(password);
         JPasswordField passwordText = new JPasswordField();
         passwordText.setFont(Utils.getQuicksand(20f));
         passwordText.setBounds(450, 300, 200, 30);
         signInPanel.add(passwordText);
 
-        JButton signIn = new JButton("Sign In");
+        BotonPersonalizado signIn = new BotonPersonalizado("Sign In");
+        signIn.setColorFondo(Color.decode("#4C1E4F"));
+        signIn.setBordePersonalizado(Color.decode("#CDB4D5"),3,30);
         signIn.setFont(Utils.getQuicksand(20f));
-        signIn.setBounds(480, 400, 120, 40);
+        signIn.setBounds(450, 400, 120, 40);
         signInPanel.add(signIn);
-
 
         JButton homeButton = Utils.createHomeButton(frame,"Back",15,15);
         homeButton.setFont(Utils.getQuicksand(16f));
-        homeButton.setBounds(10, 10, 100, 40);
+        homeButton.setBackground(Color.decode("#4C1E4F"));
+        homeButton.setBounds(0, 0, 100, 40);
         signInPanel.add(homeButton);
 
 

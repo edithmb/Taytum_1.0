@@ -78,26 +78,32 @@ public class Level1 {
         Level1Panel.setFocusable(true);
         SwingUtilities.invokeLater(() -> Level1Panel.requestFocusInWindow());
 
-        JPanel paneltop = new JPanel(new BorderLayout());
+        JPanel paneltop = new JPanel();
+        paneltop.setLayout(new BoxLayout(paneltop, BoxLayout.X_AXIS));
         paneltop.setBackground(Color.decode("#88527F"));
         paneltop.setPreferredSize(new Dimension(0, 60));
+        paneltop.setBorder(BorderFactory.createEmptyBorder(10,15,10,15));
 
         JButton homeButton = Utils.createHomeButton(frame, "Back Home", 30, 30);
         homeButton.setBorderPainted(false);
         homeButton.setFocusPainted(false);
         homeButton.setContentAreaFilled(false);
-        paneltop.add(homeButton, BorderLayout.WEST);
+        paneltop.add(homeButton);
 
-        JLabel levellabel = new JLabel("Debut level");
-        levellabel.setFont(Utils.getQuicksand(25f).deriveFont(Font.BOLD));
+        paneltop.add(Box.createHorizontalGlue());
+
+        JLabel levellabel = new JLabel("DEBUT LEVEL");
+        levellabel.setFont(Utils.getQuicksand(30f).deriveFont(Font.BOLD));
         levellabel.setForeground(Color.decode("#CDB4D5"));
-        paneltop.add(levellabel, BorderLayout.CENTER);
+        paneltop.add(levellabel);
+
+        paneltop.add(Box.createHorizontalGlue());
 
         scoreLabel = new JLabel("Taycoins: 0");
         scoreLabel.setFont(Utils.getQuicksand(24f));
-        scoreLabel.setBackground(Color.decode("#CDB4D5"));
-        scoreLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        paneltop.add(scoreLabel, BorderLayout.NORTH);
+        scoreLabel.setOpaque(true);
+        scoreLabel.setForeground(Color.decode("#CDB4D5"));
+        paneltop.add(scoreLabel);
 
         Level1Panel.add(paneltop, BorderLayout.NORTH);
 
@@ -177,8 +183,8 @@ public class Level1 {
                 } else {
                     score -= 2;
                 }
-
                 scoreLabel.setText("Taycoins: " + score);
+
             }
         }
 

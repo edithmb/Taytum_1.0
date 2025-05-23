@@ -1,4 +1,5 @@
 package screens;
+import utils.BotonPersonalizado;
 import utils.Utils;
 
 import javax.swing.*;
@@ -21,7 +22,6 @@ public class StartScreen {
 
         };
         MenuPrincipal.setLayout(null);
-        MenuPrincipal.setBackground(Color.decode("#CDB4D5"));
         addButtons(frame);
     }
     private void addButtons(JFrame frame) {
@@ -38,9 +38,9 @@ public class StartScreen {
         titulo.setBounds((1050-300)/2, 150, 500, 150);
         MenuPrincipal.add(titulo);
 
-
-        JButton Start = new JButton("Start Game");
-        Start.setFocusPainted(false);
+        BotonPersonalizado Start = new BotonPersonalizado("Start Game");
+        Start.setColorFondo(Color.decode("#4C1E4F"));
+        Start.setBordePersonalizado(Color.decode("#CDB4D5"), 3, 35);
         Start.setFont(Utils.getQuicksand(20f));
         Start.setBounds((1050 - 200) / 2, 350, 200, 50);
         MenuPrincipal.add(Start);

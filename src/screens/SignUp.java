@@ -2,6 +2,7 @@ package screens;
 
 import Main.ConnectiontoDatabase;
 import jdk.jshell.execution.Util;
+import utils.BotonPersonalizado;
 import utils.Utils;
 
 import javax.swing.*;
@@ -17,22 +18,29 @@ public class SignUp {
     public JPanel SignUpPanel;
 
     public SignUp(JFrame frame) {
-        SignUpPanel = new JPanel();
+        SignUpPanel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Utils.drawBackground(g, this, "FONDO.png");
+            }
+        };
         SignUpPanel.setLayout(null);
         SignUpPanel.setBackground(Color.decode("#CDB4D5"));
 
 
         //welcome
         JLabel welcome = new JLabel("Welcome!!!");
-        welcome.setFont(Utils.getQuicksand(50f));
+        welcome.setFont(Utils.getQuicksand(50f).deriveFont(Font.BOLD));
         welcome.setForeground(Color.decode("#4C1E4F"));
-        welcome.setBounds(350, 100, 700, 60);
+        welcome.setBounds(370, 100, 700, 60);
         SignUpPanel.add(welcome);
 
         //username
-        JLabel username = new JLabel("Username");
-        username.setFont(Utils.getQuicksand(20f));
-        username.setBounds(350, 200, 100, 30);
+        JLabel username = new JLabel("Username:");
+        username.setFont(Utils.getQuicksand(20f).deriveFont(Font.BOLD));
+        username.setForeground(Color.decode("#4C1E4F"));
+        username.setBounds(330, 200, 150, 30);
         SignUpPanel.add(username);
         JTextField usernameText = new JTextField();
         usernameText.setFont(Utils.getQuicksand(20f));
@@ -40,27 +48,30 @@ public class SignUp {
         SignUpPanel.add(usernameText);
 
         //password
-        JLabel password = new JLabel("Password");
-        password.setFont(Utils.getQuicksand(20f));
-        password.setBounds(350, 300, 100, 30);
+        JLabel password = new JLabel("Password:");
+        password.setFont(Utils.getQuicksand(20f).deriveFont(Font.BOLD));
+        password.setForeground(Color.decode("#4C1E4F"));
+        password.setBounds(330, 300, 150, 30);
         SignUpPanel.add(password);
         JPasswordField passwordText = new JPasswordField();
         passwordText.setFont(Utils.getQuicksand(20f));
         passwordText.setBounds(450, 300, 200, 30);
         SignUpPanel.add(passwordText);
 
-        JButton singUp = new JButton("Sign Up");
-        singUp.setFont(Utils.getQuicksand(20f));
-        singUp.setBounds(480, 400, 120, 40);
-        SignUpPanel.add(singUp);
+        BotonPersonalizado signUp = new BotonPersonalizado("Sign Up");
+        signUp.setColorFondo(Color.decode("#4C1E4F"));
+        signUp.setBordePersonalizado(Color.decode("#CDB4D5"),3,30);
+        signUp.setFont(Utils.getQuicksand(20f));
+        signUp.setBounds(480, 400, 120, 40);
+        SignUpPanel.add(signUp);
 
         JButton homeButton = Utils.createHomeButton(frame,"Back",15,15);
         homeButton.setFont(Utils.getQuicksand(16f));
-        homeButton.setBounds(10, 10, 100, 40);
+        homeButton.setBounds(0, 0, 100, 40);
         SignUpPanel.add(homeButton);
 
 
-        singUp.addActionListener(new ActionListener() {
+        signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameText.getText();

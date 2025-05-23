@@ -1,5 +1,6 @@
 package screens;
 
+import utils.BotonPersonalizado;
 import utils.Utils;
 
 import javax.swing.*;
@@ -13,11 +14,17 @@ import java.awt.event.ActionListener;
 public class Instructions {
     public JPanel InstructionsPanel;
     public Instructions(JFrame frame) {
-        InstructionsPanel = new JPanel();
+        InstructionsPanel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Utils.drawBackground(g, this, "FONDO.png");
+            }
+        };
         InstructionsPanel.setLayout(null);
-        InstructionsPanel.setBackground(Color.decode("#CDB4D5"));
         showInstructions();
         createButtons(frame);
+
 
     }
 
@@ -46,24 +53,32 @@ public class Instructions {
     }
 
     private void createButtons(JFrame frame) {
-        JButton signIn = new JButton("Sign In");
+
+        BotonPersonalizado signIn = new BotonPersonalizado("Sign in");
+        signIn.setColorFondo(Color.decode("#4C1E4F"));
+        signIn.setBordePersonalizado(Color.decode("#CDB4D5"),3,30);
         signIn.setFont(Utils.getQuicksand(20f));
         signIn.setBounds(300, 350, 200, 50);
         InstructionsPanel.add(signIn);
 
-        JButton signUp = new JButton("Sign Up");
+        BotonPersonalizado signUp = new BotonPersonalizado("Sign up");
+        signUp.setColorFondo(Color.decode("#4C1E4F"));
+        signUp.setBordePersonalizado(Color.decode("#CDB4D5"),3,30);
         signUp.setFont(Utils.getQuicksand(20f));
         signUp.setBounds(520, 350, 200, 50);
         InstructionsPanel.add(signUp);
 
-        JButton guest = new JButton("Play as Guest");
+        BotonPersonalizado guest = new BotonPersonalizado("Play as Guest");
+        guest.setColorFondo(Color.decode("#4C1E4F"));
+        guest.setBordePersonalizado(Color.decode("#CDB4D5"),3,30);
         guest.setFont(Utils.getQuicksand(20f));
-        guest.setBounds(400, 450, 200, 50);
+        guest.setBounds(400, 430, 200, 50);
         InstructionsPanel.add(guest);
 
         JButton homeButton = Utils.createHomeButton(frame,"Back",15,15);
+        homeButton.setBackground(Color.decode("#4C1E4F"));
         homeButton.setFont(Utils.getQuicksand(16f));
-        homeButton.setBounds(10, 10, 100, 40);
+        homeButton.setBounds(0, 0, 100, 40);
         InstructionsPanel.add(homeButton);
 
         signIn.addActionListener( new ActionListener() {

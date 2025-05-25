@@ -51,6 +51,15 @@ public class Levels {
          homeButton.setBounds(0, 0, 100, 40);
          LevelsPanel.add(homeButton);
 
+         ImageIcon avatarIcon = new ImageIcon("src/resources/usuario.png");
+         Image image = avatarIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+         JLabel userIconLabel = new JLabel(new ImageIcon(image));
+
+         userIconLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+         userIconLabel.setBounds(950, 0, 60, 40); // Posición en la esquina superior derecha
+         LevelsPanel.add(userIconLabel);
+
+
          level1.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {

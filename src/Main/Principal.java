@@ -26,7 +26,9 @@ public class Principal {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
+
         //Icono
         Toolkit screen = Toolkit.getDefaultToolkit();
         Image image = screen.getImage("src/resources/logotulip.png");

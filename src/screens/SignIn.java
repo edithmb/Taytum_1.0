@@ -76,8 +76,8 @@ public class SignIn {
 
                 if(checkUser(username, password)){
                     JOptionPane.showMessageDialog(signInPanel, "Welcome Again " + username);
-                    Levels levels = new Levels(frame);
-                    frame.setContentPane(levels.LevelsPanel);
+                    Icons icons = new Icons(frame,"Sign In");
+                    frame.setContentPane(icons.IconsPanel);
                     frame.validate();
                     frame.repaint();
 

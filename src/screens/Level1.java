@@ -101,9 +101,18 @@ public class Level1 {
 
         scoreLabel = new JLabel("Taycoins: 0");
         scoreLabel.setFont(Utils.getQuicksand(24f));
-        scoreLabel.setOpaque(true);
         scoreLabel.setForeground(Color.decode("#CDB4D5"));
         paneltop.add(scoreLabel);
+
+
+        ImageIcon avatarIcon = new ImageIcon("src/resources/usuario.png");
+        Image image = avatarIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        JLabel userIconLabel = new JLabel(new ImageIcon(image));
+
+        userIconLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+
+        paneltop.add(Box.createRigidArea(new Dimension(10, 0)));
+        paneltop.add(userIconLabel);
 
         Level1Panel.add(paneltop, BorderLayout.NORTH);
 
@@ -129,11 +138,11 @@ public class Level1 {
             frame.repaint();
         });
 
-        gameTimer = new Timer(30, e -> gameLoop());
+        gameTimer = new Timer(30, e -> gameLoop(frame));
         gameTimer.start();
     }
 
-    private void gameLoop() {
+    private void gameLoop(JFrame frame) {
         if (random.nextInt(40) == 0) {
             int x = random.nextInt(Level1Panel.getWidth() - objectWidth);
             fallingX.add(x);
@@ -165,11 +174,11 @@ public class Level1 {
             }
         }
 
-        checkCollisions();
+        checkCollisions(frame);
         Level1Panel.repaint();
     }
 
-    private void checkCollisions() {
+    private void checkCollisions(JFrame frame) {
         Rectangle collectorBounds = new Rectangle(collectorX, collectorY, collectorWidth, collectorHeight);
         List<Integer> indicesToRemove = new ArrayList<>();
 
@@ -202,7 +211,7 @@ public class Level1 {
             JOptionPane.showMessageDialog(Level1Panel, "Back to the menu loser!!!", "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
 
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(Level1Panel);
-            Levels levelScreen = new Levels(topFrame);
+            Levels levelScreen = new Levels(frame);
             topFrame.setContentPane(levelScreen.LevelsPanel);
             topFrame.revalidate();
             topFrame.repaint();

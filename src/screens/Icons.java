@@ -33,13 +33,13 @@ public class Icons {
                 "src/resources/usuario.png"
         };
 
-        int x = 220;
+        int x = 300;
         for (int i = 0; i < avatarPaths.length; i++) {
             String path = avatarPaths[i];
             ImageIcon icon = new ImageIcon(path);
             Image img = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
             JButton avatarButton = new JButton(new ImageIcon(img));
-            avatarButton.setBounds(x, 150, 120, 120);
+            avatarButton.setBounds(x, 220, 120, 120);
             avatarButton.setFocusPainted(false);
             avatarButton.setContentAreaFilled(false);
             avatarButton.setBorder(BorderFactory.createLineBorder(Color.decode("#4C1E4F"), 2));

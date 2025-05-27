@@ -20,7 +20,7 @@ public class Level1 {
     private List<Integer> fallingX = new ArrayList<>();
     private List<Integer> fallingY = new ArrayList<>();
     private List<String> fallingImages = new ArrayList<>();
-    private List<Boolean> isCorrectList = new ArrayList<>(); // lista paralela para saber si es correcto o no
+    private List<Boolean> isCorrectList = new ArrayList<>();
 
     private String[] correctImages = {
             "src/resources/debut.png",
@@ -33,8 +33,6 @@ public class Level1 {
             "src/resources/evermore.png",
             "src/resources/midnights.png",
             "src/resources/ttpd.png",
-
-
     };
 
     private String[] incorrectImages = {
@@ -46,8 +44,8 @@ public class Level1 {
     };
 
     private int score = 0;
-    private final int collectorWidth = 200;
-    private final int collectorHeight = 150;
+    private final int collectorWidth = 150;
+    private final int collectorHeight = 100;
     private final int objectWidth = 105;
     private final int objectHeight = 100;
 
@@ -57,27 +55,35 @@ public class Level1 {
     private Clip backgroundClip;
 
     public Level1(JFrame frame) {
-//        playBackgroundMusic();
+        initLevel1Panel();
+        JPanel paneltop = createTopPanel(frame);
+        Level1Panel.add(paneltop, BorderLayout.NORTH);
+        setupKeyListener();
+        setupHomeButtonAction(frame, paneltop);
+        gameTimer = new Timer(30, e -> gameLoop(frame));
+        gameTimer.start();
+    }
 
+    private void initLevel1Panel() {
         Level1Panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Utils.drawImage(g, Level1Panel, "src/resources/cesped.png", 0.8f, 0, 400, 1050, 200);
                 Utils.drawCollector(g, Level1Panel, "src/resources/hat.png", collectorX, collectorY, collectorWidth, collectorHeight);
-
                 for (int i = 0; i < fallingX.size(); i++) {
                     String imagePath = fallingImages.get(i);
                     Utils.drawImage(g, Level1Panel, imagePath, 1f, fallingX.get(i), fallingY.get(i), objectWidth, objectHeight);
                 }
             }
         };
-
         Level1Panel.setLayout(new BorderLayout());
         Level1Panel.setBackground(Color.decode("#EDFDEE"));
         Level1Panel.setFocusable(true);
         SwingUtilities.invokeLater(() -> Level1Panel.requestFocusInWindow());
+    }
 
+    private JPanel createTopPanel(JFrame frame) {
         JPanel paneltop = new JPanel();
         paneltop.setLayout(new BoxLayout(paneltop, BoxLayout.X_AXIS));
         paneltop.setBackground(Color.decode("#88527F"));
@@ -104,18 +110,18 @@ public class Level1 {
         scoreLabel.setForeground(Color.decode("#CDB4D5"));
         paneltop.add(scoreLabel);
 
-
         ImageIcon avatarIcon = new ImageIcon("src/resources/usuario.png");
         Image image = avatarIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         JLabel userIconLabel = new JLabel(new ImageIcon(image));
-
         userIconLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
         paneltop.add(Box.createRigidArea(new Dimension(10, 0)));
         paneltop.add(userIconLabel);
 
-        Level1Panel.add(paneltop, BorderLayout.NORTH);
+        return paneltop;
+    }
 
+    private void setupKeyListener() {
         Level1Panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -130,43 +136,62 @@ public class Level1 {
                 Level1Panel.repaint();
             }
         });
+    }
 
+    private void setupHomeButtonAction(JFrame frame, JPanel paneltop) {
+        JButton homeButton = (JButton) paneltop.getComponent(0);
         homeButton.addActionListener(e -> {
             StartScreen start = new StartScreen(frame);
             frame.setContentPane(start.MenuPrincipal);
             frame.validate();
             frame.repaint();
         });
-
-        gameTimer = new Timer(30, e -> gameLoop(frame));
-        gameTimer.start();
     }
 
     private void gameLoop(JFrame frame) {
-        if (random.nextInt(40) == 0) {
-            int x = random.nextInt(Level1Panel.getWidth() - objectWidth);
-            fallingX.add(x);
-            fallingY.add(0);
+        // Asegura caída constante: intenta crear un nuevo objeto cada ciclo
+        if (fallingX.size() < 10) { // Limita el número máximo de objetos simultáneos
+            int maxTries = 20;
+            boolean added = false;
+            while (maxTries-- > 0 && !added) {
+                int x = random.nextInt(Level1Panel.getWidth() - objectWidth);
 
-            boolean isCorrect = random.nextBoolean(); // 50% de que sea correcto o no
-            String selectedImage;
+                // Evita solapamientos: comprobar si el nuevo objeto se solaparía
+                boolean overlaps = false;
+                for (int i = 0; i < fallingX.size(); i++) {
+                    int otherX = fallingX.get(i);
+                    int otherY = fallingY.get(i);
+                    if (Math.abs(x - otherX) < objectWidth && otherY < objectHeight + 50) {
+                        overlaps = true;
+                        break;
+                    }
+                }
 
-            if (isCorrect) {
-                selectedImage = correctImages[random.nextInt(correctImages.length)];
-            } else {
-                selectedImage = incorrectImages[random.nextInt(incorrectImages.length)];
+                if (!overlaps) {
+                    fallingX.add(x);
+                    fallingY.add(0);
+
+                    boolean isCorrect = random.nextBoolean();
+                    String selectedImage = isCorrect
+                            ? correctImages[random.nextInt(correctImages.length)]
+                            : incorrectImages[random.nextInt(incorrectImages.length)];
+
+                    fallingImages.add(selectedImage);
+                    isCorrectList.add(isCorrect);
+                    added = true;
+                }
             }
-
-            fallingImages.add(selectedImage);
-            isCorrectList.add(isCorrect);
         }
 
+        // Mueve los objetos
         for (int i = 0; i < fallingY.size(); i++) {
             fallingY.set(i, fallingY.get(i) + 5);
         }
 
+        // Elimina objetos que caen fuera de la pantalla (sin penalizar si no se recogen)
         for (int i = fallingY.size() - 1; i >= 0; i--) {
             if (fallingY.get(i) > Level1Panel.getHeight()) {
+                // Solo eliminar, no penalizar
                 fallingX.remove(i);
                 fallingY.remove(i);
                 fallingImages.remove(i);
@@ -185,18 +210,17 @@ public class Level1 {
         for (int i = 0; i < fallingX.size(); i++) {
             Rectangle objBounds = new Rectangle(fallingX.get(i), fallingY.get(i), objectWidth, objectHeight);
             if (collectorBounds.intersects(objBounds)) {
-                indicesToRemove.add(i);
-
-                if (isCorrectList.get(i)) {
+                boolean isCorrect = isCorrectList.get(i);
+                if (isCorrect) {
                     score += 1;
                 } else {
                     score -= 2;
                 }
-                scoreLabel.setText("Taycoins: " + score);
-
+                indicesToRemove.add(i);
             }
         }
 
+        // Elimina los objetos después de procesarlos (en orden inverso)
         for (int i = indicesToRemove.size() - 1; i >= 0; i--) {
             int index = indicesToRemove.get(i);
             fallingX.remove(index);
@@ -205,11 +229,11 @@ public class Level1 {
             isCorrectList.remove(index);
         }
 
-        // si baja la puntuación, mostrar mensaje y volver a menú niveles
-        if (score < 0) {
-            gameTimer.stop(); // Detener el juego
-            JOptionPane.showMessageDialog(Level1Panel, "Back to the menu loser!!!", "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
+        scoreLabel.setText("Taycoins: " + score);
 
+        if (score < 0) {
+            gameTimer.stop();
+            JOptionPane.showMessageDialog(Level1Panel, "Back to the menu loser!!!", "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(Level1Panel);
             Levels levelScreen = new Levels(frame);
             topFrame.setContentPane(levelScreen.LevelsPanel);
@@ -217,6 +241,7 @@ public class Level1 {
             topFrame.repaint();
         }
     }
+
 
     public void playBackgroundMusic() {
         try {
@@ -232,6 +257,7 @@ public class Level1 {
         }
     }
 }
+
 
 
 
